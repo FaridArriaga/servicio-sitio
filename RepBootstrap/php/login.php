@@ -8,7 +8,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$email = $mysqli->real_escape_string($_POST['campo_email_login']);
 	$pass = $mysqli->real_escape_string($_POST['campo_contraseña_login']);
 
-	if ($nueva_consulta = $mysqli->prepare("SELECT nombre, email FROM usuarios WHERE email = ? AND pass = ?")) {
+	if ($nueva_consulta = $mysqli->prepare("SELECT nombre_usuario, email FROM usuarios WHERE email = ? AND password = ?")) {
 		
 		$nueva_consulta->bind_param('ss', $email, $pass);
 
