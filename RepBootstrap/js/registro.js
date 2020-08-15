@@ -1,58 +1,96 @@
-$(document).ready(function() {
-	$("#btn_registrarse").click(function(evt) {
-		evt.preventDefault();		
-		var mensaje= "";
-		var entrar = false;
-		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		var contenido = $("#warnings");
-		var campo_nombre = $("#campo_nombre").val().trim();
-		var campo_email = $("#campo_email").val().trim();
-		var campo_contraseña = $("#campo_contraseña").val().trim();
-		var campo_rep_contraseña = $("#campo_rep_contraseña").val().trim();
-		
-		if (campo_nombre.length <6 || campo_nombre.length > 15){
-			
-			mensaje += 'El nombre debe tener mínimo 6 caracteres y maximo 15 <br>';
-			entrar = true;
-		}
+jQuery(document).on('submit','#formularioReg',function(evt) {
+	evt.preventDefault();		
+	var mensaje= "";
+	var entrar = false;
+	var regex_text = /^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/;
+	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var contenido = $("#warnings");
+	var name = $("#nombre_reg").val().trim();
+	var email = $("#email_reg").val().trim();
+	var password = $("#password_reg").val().trim();
+	var passwordRep = $("#rep_password_reg").val().trim();
 
-		if (!regex.test(campo_email)){
-			mensaje += 'El email no es valido <br>';
-			entrar = true;
-		}
+	if (name.length <6 || name.length > 15){			
+		mensaje += 'El nombre debe tener mínimo 6 caracteres y maximo 15 <br>';
+		entrar = true;
+	}
 
-		if (campo_contraseña.length < 8 || campo_contraseña.length > 16){
-			mensaje += 'Contraseña entre 8 y 16 caracteres <br>';
-			entrar = true;
+	if (!regex_text.test(name)){			
+		mensaje += 'El nombre no puede tener caracteres especiales <br>';
+		entrar = true;
+	}
 
-		}else if(campo_contraseña != campo_rep_contraseña){
-			mensaje += 'Las contraseñas no coinciden <br>';
-			entrar = true;
-		}
+	if (!regex.test(email)){
+		mensaje += 'El email no es valido <br>';
+		entrar = true;
+	}
 
-		if (entrar == true) {			
-			contenido.html(mensaje);
-			contenido.css('display','block');
-			contenido = "";
-		}
+	if (password.length < 8 || password.length > 16){
+		mensaje += 'Contraseña entre 8 y 16 caracteres <br>';
+		entrar = true;
 
-		else {
-			contenido.html("OK")
-			
-		}
+	}
 
+	if(password != passwordRep){
+		mensaje += 'Las contraseñas no coinciden <br>';
+		entrar = true;
+	}
 
-	});
+	if (!regex_text.test(password)){			
+		mensaje += 'La contraseña no puede tener caracteres especiales <br>';
+		entrar = true;
+	}
+
+	if (entrar == true) {			
+		contenido.html(mensaje);
+		contenido.css('display','block');
+		contenido = "";
+	}
+
+	else {
+		jQuery.ajax({
+			url:'php/registro.php',
+			type:'POST',
+			dataType:'json',
+			data:$(this).serialize(),
+		})
+		.done(function(respuesta){
+			console.log(respuesta);
+			if (!respuesta.error) {
+				contenido.css('margin-top','0.4rem');
+				contenido.css('display','block');
+				contenido.html("El email ya esta ligado a una cuenta, intente otro");
+				contenido = "";
+			}else{
+				setTimeout(function(){
+					location='log.php';					
+				},3000);
+				$('.btn-light').val('Redireccionando...');
+				$('.btn-light').attr("disabled", true);
+				contenido.css('margin-top','0.4rem');
+				contenido.css('font-weight','bold');	
+				contenido.css('display','block');
+				contenido.html("Datos registrados, sera redireccionado al inicio de sesión");	
+			}
+		})
+		.fail(function(resp){
+			console.log(resp.responseText);
+		})
+		.always(function(){
+			console.log("complete");
+		});
+	}
+
 });
 
 var check = function() {
-	if (document.getElementById('campo_contraseña').value ==
-		document.getElementById('campo_rep_contraseña').value){
+	if (document.getElementById('password_reg').value ==
+		document.getElementById('rep_password_reg').value){
 		document.getElementById('messagePassword').style.color = 'green';
 	document.getElementById('messagePassword').innerHTML = 'Coincide';
 } else {
 	document.getElementById('messagePassword').style.color = 'red';
 	document.getElementById('messagePassword').innerHTML = 'No coincide';
 }
-}
+};
 

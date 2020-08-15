@@ -1040,21 +1040,22 @@ form .grupo{
 		align-items: center;
 		border-radius: 0.4rem !important;
 	}
+}
 
-	@media (min-width: 600px){
-		.navbar.scrolling-navbar{
-			padding-top:12px;
-			padding-bottom:12px;
-			-webkit-transition:background 0.5s ease-in-out,padding 0.5s ease-in-out;
-			transition:background 0.5s ease-in-out,padding 0.5s ease-in-out
-		}
-		.navbar.scrolling-navbar .navbar-nav>li{
-			-webkit-transition-duration:1s;
-			transition-duration:1s
-		}
-		.navbar.scrolling-navbar.top-nav-collapse{
-			padding-top:5px;
-			padding-bottom:5px
-		}
-
+@media (min-width: 600px){
+	.navbar.scrolling-navbar{
+		padding-top:12px;
+		padding-bottom:12px;
+		-webkit-transition:background 0.5s ease-in-out,padding 0.5s ease-in-out;
+		transition:background 0.5s ease-in-out,padding 0.5s ease-in-out
 	}
+	.navbar.scrolling-navbar .navbar-nav>li{
+		-webkit-transition-duration:1s;
+		transition-duration:1s
+	}
+	.navbar.scrolling-navbar.top-nav-collapse{
+		padding-top:5px;
+		padding-bottom:5px
+	}
+
+}

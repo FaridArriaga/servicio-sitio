@@ -71,10 +71,13 @@ if (isset($_SESSION['usuario'])) {
             <a class="nav-link" href="foro.php">Ir al foro</a>
           </li>
           <li class="nav-item mr-auto">
-            <a class="nav-link" href="materials.php">Materiales y Nanomateriales</a>
+            <a class="nav-link" href="materials.php">Nanomateriales</a>
           </li>
           <li class="nav-item mr-auto">
             <a class="nav-link" href="#">Productos</a>
+          </li>
+          <li class="nav-item mr-auto">
+            <a class="nav-link" href="#">Proveedores</a>
           </li>
           <li class="nav-item mr-auto">
             <form class="input-group mb-0" action="#" method="post" id="form">
@@ -123,11 +126,11 @@ if (isset($_SESSION['usuario'])) {
       </div>
       <h1 class="text-cyan text-center">Iniciar sesión</h1>
       <div class="grupo">
-        <input type="email" class="form-control" name="campo_email_login" required id="campo_email_login" />
+        <input type="email" class="form-control" name="email_login" required id="email_login" />
         <label for="">Email</label>
       </div>
       <div class="grupo">
-        <input type="password" class="form-control" pattern="[A-Za-z0-9]{8,15}" name="campo_contraseña_login" id="campo_contraseña_login" required/>
+        <input type="password" class="form-control" pattern="[A-Za-z0-9]{8,16}" name="password_login" id="password_login" required/>
         <label for="">Contraseña</label>
       </div>
       <div class="w-75 mx-auto">

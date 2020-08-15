@@ -1,19 +1,18 @@
 jQuery(document).on('submit','#formularioLog',function(event) {
-
 	event.preventDefault();
 	var mensaje= "";
 	var entrar = false;
 	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	var contenido = $("#warnings");	
-	var campo_email_login = $("#campo_email_login").val().trim();
-	var campo_contraseña_login = $("#campo_contraseña_login").val().trim();	
+	var email = $("#email_login").val().trim();
+	var password = $("#password_login").val().trim();	
 
-	if (!regex.test(campo_email_login)){
+	if (!regex.test(email)){
 		mensaje += 'El email no es valido <br>';
 		entrar = true;
 	}
 
-	if (campo_contraseña_login.length < 8 || campo_contraseña_login.length > 16){
+	if (password.length < 8 || password.length > 16){
 		mensaje += 'Contraseña entre 8 y 16 caracteres <br>';
 		entrar = true;
 	}
@@ -25,8 +24,6 @@ jQuery(document).on('submit','#formularioLog',function(event) {
 	}
 
 	else {
-		
-
 		jQuery.ajax({
 			url:'php/login.php',
 			type:'POST',
@@ -57,8 +54,6 @@ jQuery(document).on('submit','#formularioLog',function(event) {
 			console.log("complete");
 		});
 	}
-
-
 
 });
 

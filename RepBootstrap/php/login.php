@@ -1,12 +1,12 @@
 <?php
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 	require('conexion.php');
-	sleep(2);
+	sleep(1);
 	session_start();
 
 	$mysqli->set_charset('utf8');
-	$email = $mysqli->real_escape_string($_POST['campo_email_login']);
-	$pass = $mysqli->real_escape_string($_POST['campo_contraseña_login']);
+	$email = $mysqli->real_escape_string($_POST['email_login']);
+	$pass = sha1($mysqli->real_escape_string($_POST['password_login']));
 
 	if ($nueva_consulta = $mysqli->prepare("SELECT nombre_usuario, email FROM usuarios WHERE email = ? AND password = ?")) {
 		
