@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-08-2020 a las 07:59:57
+-- Tiempo de generación: 15-08-2020 a las 10:54:45
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `desventajas-investigacion` (
   `id` int(11) NOT NULL,
-  `desventaja` char(255) NOT NULL,
+  `desventaja` varchar(50) NOT NULL,
   `idInvestigacion` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,13 +41,13 @@ CREATE TABLE `desventajas-investigacion` (
 
 CREATE TABLE `domicilio-proveedores` (
   `id` int(11) NOT NULL,
-  `calle` char(50) NOT NULL,
+  `calle` varchar(50) NOT NULL,
   `numero` int(11) NOT NULL,
-  `colonia` char(50) NOT NULL,
+  `colonia` varchar(50) NOT NULL,
   `cp` int(11) NOT NULL,
-  `ciudad` char(100) NOT NULL,
-  `pais` char(50) NOT NULL,
-  `rfc-proveedor` char(13) NOT NULL
+  `ciudad` varchar(100) NOT NULL,
+  `pais` varchar(50) NOT NULL,
+  `rfc-proveedor` varchar(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -58,7 +58,7 @@ CREATE TABLE `domicilio-proveedores` (
 
 CREATE TABLE `explicaciones-investigacion` (
   `id` int(11) NOT NULL,
-  `explicacion-archivo` char(255) NOT NULL,
+  `explicacion-archivo` varchar(50) NOT NULL,
   `descripcion-explicacion` varchar(1000) NOT NULL,
   `idInvestigacion` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -71,14 +71,14 @@ CREATE TABLE `explicaciones-investigacion` (
 
 CREATE TABLE `investigaciones` (
   `id` char(10) NOT NULL,
-  `nombre-investigador` char(255) NOT NULL,
+  `nombre-investigador` varchar(50) NOT NULL,
   `email` varchar(320) NOT NULL,
-  `contraseña-investigacion` char(16) NOT NULL,
-  `nombres-investigacion` char(255) NOT NULL,
+  `contraseña-investigacion` varchar(40) NOT NULL,
+  `nombres-investigacion` varchar(200) NOT NULL,
   `año` year(4) NOT NULL,
   `fecha-avance` date NOT NULL,
-  `titulo` char(255) NOT NULL,
-  `tipo-material` char(60) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `tipo-material` varchar(60) NOT NULL,
   `clasificacion` char(5) NOT NULL,
   `fines-investigacion` varchar(1000) NOT NULL,
   `caracteristicas-material` varchar(1000) NOT NULL,
@@ -87,14 +87,14 @@ CREATE TABLE `investigaciones` (
   `antecedentes` varchar(1000) NOT NULL,
   `objetivos` varchar(750) NOT NULL,
   `hipotesis` varchar(510) NOT NULL,
-  `esquema-sintesis` char(255) NOT NULL,
+  `esquema-sintesis` varchar(200) NOT NULL,
   `desc-sintesis` varchar(1000) NOT NULL,
-  `esquema-funcionamiento` char(255) NOT NULL,
+  `esquema-funcionamiento` varchar(200) NOT NULL,
   `desc-funcionamiento` varchar(1000) NOT NULL,
-  `tipo-evaluacion` char(20) NOT NULL,
+  `tipo-evaluacion` varchar(20) NOT NULL,
   `tecnicas-utiles` varchar(1000) NOT NULL,
   `justificacion-tecnicas` varchar(1000) NOT NULL,
-  `nivel-certeza` char(20) NOT NULL,
+  `nivel-certeza` varchar(20) NOT NULL,
   `metas-expectativas` varchar(1000) NOT NULL,
   `referencias` varchar(1500) NOT NULL,
   `bibliografia` varchar(1500) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE `investigaciones` (
 
 CREATE TABLE `materiales-investigacion` (
   `id` int(11) NOT NULL,
-  `archivo-material` char(255) NOT NULL,
+  `archivo-material` varchar(200) NOT NULL,
   `descripcion-material` varchar(1000) NOT NULL,
   `idInvestigacion` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -125,7 +125,7 @@ CREATE TABLE `pacientes` (
   `nombres` varchar(50) NOT NULL,
   `apellidos` varchar(70) NOT NULL,
   `domicilio` varchar(255) NOT NULL,
-  `telefono` char(11) NOT NULL,
+  `telefono` varchar(11) NOT NULL,
   `edad` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -137,7 +137,7 @@ CREATE TABLE `pacientes` (
 
 CREATE TABLE `pasos-investigacion` (
   `id` int(11) NOT NULL,
-  `paso-archivo` char(255) NOT NULL,
+  `paso-archivo` varchar(200) NOT NULL,
   `descripcion-paso` varchar(1000) NOT NULL,
   `idInvestigacion` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -150,7 +150,7 @@ CREATE TABLE `pasos-investigacion` (
 
 CREATE TABLE `productos` (
   `id` char(10) NOT NULL,
-  `titulo` char(50) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
   `componentes` varchar(500) NOT NULL,
   `funcion` varchar(500) NOT NULL,
   `descripcion` varchar(500) NOT NULL,
@@ -165,10 +165,10 @@ CREATE TABLE `productos` (
 --
 
 CREATE TABLE `proveedores-compras` (
-  `rfc` char(13) NOT NULL,
+  `rfc` varchar(13) NOT NULL,
   `id` int(11) NOT NULL,
-  `nombre` char(25) NOT NULL,
-  `telefono` char(11) NOT NULL
+  `nombre` varchar(100) NOT NULL,
+  `telefono` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -194,8 +194,8 @@ CREATE TABLE `tratamientos` (
 CREATE TABLE `usuarios` (
   `email` varchar(320) NOT NULL,
   `id` int(11) NOT NULL,
-  `nombre_usuario` char(15) NOT NULL,
-  `password` char(16) NOT NULL
+  `nombre_usuario` varchar(15) NOT NULL,
+  `password` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -203,7 +203,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`email`, `id`, `nombre_usuario`, `password`) VALUES
-('ivan_farid@hotmail.com', 1, 'Farid', '12345678');
+('corre@correo.com', 3, 'correo1', '7c222fb2927d828af22f592134e8932480637c0d'),
+('correo_1@correo.com', 16, 'correo2', '7c222fb2927d828af22f592134e8932480637c0d'),
+('correo_2@correo.com', 18, '1111111', '7c222fb2927d828af22f592134e8932480637c0d'),
+('ivan.correo@hotmail.com', 2, 'ivan', '7c222fb2927d828af22f592134e8932480637c0d'),
+('ivan_farid@hotmail.com', 1, 'Farid', '7c222fb2927d828af22f592134e8932480637c0d');
 
 -- --------------------------------------------------------
 
@@ -213,7 +217,7 @@ INSERT INTO `usuarios` (`email`, `id`, `nombre_usuario`, `password`) VALUES
 
 CREATE TABLE `ventajas-investigacion` (
   `id` int(11) NOT NULL,
-  `ventaja` char(255) NOT NULL,
+  `ventaja` varchar(200) NOT NULL,
   `idInvestigacion` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -233,7 +237,8 @@ ALTER TABLE `desventajas-investigacion`
 --
 ALTER TABLE `domicilio-proveedores`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `rfc-proveedor` (`rfc-proveedor`);
+  ADD KEY `rfc-proveedor` (`rfc-proveedor`),
+  ADD KEY `rfc-proveedor_2` (`rfc-proveedor`);
 
 --
 -- Indices de la tabla `explicaciones-investigacion`
@@ -349,7 +354,7 @@ ALTER TABLE `proveedores-compras`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `ventajas-investigacion`
