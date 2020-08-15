@@ -64,7 +64,11 @@ jQuery(document).on('submit','#formularioReg',function(evt) {
 			}else{
 				setTimeout(function(){
 					location='log.php';					
+<<<<<<< HEAD
 				},3000);
+=======
+				},5000);
+>>>>>>> master
 				$('.btn-light').val('Redireccionando...');
 				$('.btn-light').attr("disabled", true);
 				contenido.css('margin-top','0.4rem');
