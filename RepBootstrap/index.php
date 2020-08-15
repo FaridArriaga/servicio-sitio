@@ -113,7 +113,7 @@ if (isset($_SESSION['usuario'])) {
     <div class="container">
       <div class="row">
         <div class="col-lg-6 aling-self-center">
-          <h1 class="mb-4">Bienvenido al <span class="text-primary font-weight-bold">Sistema de información de nanomedicina</span></h1>
+          <h1 class="mb-4">Bienvenido al <span class="text-primary font-weight-bold"> Modifique esto Sistema de información de nanomedicina</span></h1>
           <p class="lead text-light mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
           </p>
