@@ -71,10 +71,13 @@ if (isset($_SESSION['usuario'])) {
             <a class="nav-link" href="foro.php">Ir al foro</a>
           </li>
           <li class="nav-item mr-auto">
-            <a class="nav-link" href="materials.php">Materiales y Nanomateriales</a>
+            <a class="nav-link" href="materials.php">Nanomateriales</a>
           </li>
           <li class="nav-item mr-auto">
             <a class="nav-link" href="#">Productos</a>
+          </li>
+          <li class="nav-item mr-auto">
+            <a class="nav-link" href="#">Proveedores</a>
           </li>
           <li class="nav-item mr-auto">
             <form class="input-group mb-0" action="#" method="post" id="form">
@@ -117,26 +120,28 @@ if (isset($_SESSION['usuario'])) {
 <section class="bg-color-dark-x-x py-4 d-flex">
   <div class="container align-self-center">
     <div class="py-1 shadow form-registro w-50 mx-auto">
-      <form action="#" method="post" id="formularioReg" class="w-100">
+      <form action="" method="post" id="formularioReg" class="w-100">
         <div class="text-center mx-auto w-25">
           <img src="imgs/icon_reg.png" alt="" class="avatar w-75 my-4" id="logo_registro">
         </div>
         <h1 class="text-cyan text-center">Registro</h1>
         <div class="grupo">
-          <input type="text" class="form-control" name="nombre" id="campo_nombre" required />
+          <input type="text" class="form-control" name="nombre_reg" id="nombre_reg" required />
           <label for="">Nombre</label>
         </div>
         <div class="grupo">
-          <input type="email" class="form-control" name="email"  required id="campo_email" />
+          <input type="email" class="form-control" name="email_reg" id="email_reg" required />
           <label for="">Email</label>
         </div>
         <div class="grupo">
-          <input type="password" class="form-control" name="contraseña" id="campo_contraseña" required onkeyup='check();' />
+          <input type="password" class="form-control" name="password_reg" id="password_reg" pattern="[A-Za-z0-9]{8,16}" required onkeyup='check();' />
           <label for="">Contraseña</label>
+          <small class="text-muted">Al menos 8 caracteres y sin caracteres especiales</small>       
         </div>
         <div class="grupo">
-          <input type="password" class="form-control" name="rContraseña" id="campo_rep_contraseña"  required onkeyup='check();' />
-          <label for="">Repetir contraseña <span id='messagePassword'></span></label>        
+          <input type="password" class="form-control" name="rep_password_reg" id="rep_password_reg" pattern="[A-Za-z0-9]{8,16}"  required onkeyup='check();' />
+          <label for="">Repetir contraseña <span id='messagePassword'></span></label> 
+
         </div>
         <div class="w-75 mx-auto">
           <input type="submit" name="" id="btn_registrarse" class="btn btn-primary w-100 btn-light" value="Registrarse">

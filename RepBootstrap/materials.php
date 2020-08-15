@@ -62,10 +62,13 @@ if (isset($_SESSION['usuario'])) {
             <a class="nav-link" href="foro.php">Ir al foro</a>
           </li>
           <li class="nav-item mr-auto">
-            <a class="nav-link" href="#">Materiales y Nanomateriales</a>
+            <a class="nav-link" href="#">Nanomateriales</a>
           </li>
           <li class="nav-item mr-auto">
             <a class="nav-link" href="#">Productos</a>
+          </li>
+          <li class="nav-item mr-auto">
+            <a class="nav-link" href="#">Proveedores</a>
           </li>
           <li class="nav-item mr-auto">
             <form class="input-group mb-0" action="#" method="post" id="form">
