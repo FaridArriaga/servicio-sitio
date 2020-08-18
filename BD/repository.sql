@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-08-2020 a las 10:54:45
+-- Tiempo de generación: 18-08-2020 a las 02:38:31
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.5
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `desventajas-investigacion` (
   `id` int(11) NOT NULL,
   `desventaja` varchar(50) NOT NULL,
-  `idInvestigacion` char(10) NOT NULL
+  `idInvestigacion` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -60,7 +60,7 @@ CREATE TABLE `explicaciones-investigacion` (
   `id` int(11) NOT NULL,
   `explicacion-archivo` varchar(50) NOT NULL,
   `descripcion-explicacion` varchar(1000) NOT NULL,
-  `idInvestigacion` char(10) NOT NULL
+  `idInvestigacion` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -70,10 +70,10 @@ CREATE TABLE `explicaciones-investigacion` (
 --
 
 CREATE TABLE `investigaciones` (
-  `id` char(10) NOT NULL,
-  `nombre-investigador` varchar(50) NOT NULL,
+  `id` varchar(40) NOT NULL,
+  `nombre_investigador` varchar(50) NOT NULL,
   `email` varchar(320) NOT NULL,
-  `contraseña-investigacion` varchar(40) NOT NULL,
+  `password_investigacion` varchar(40) NOT NULL,
   `nombres-investigacion` varchar(200) NOT NULL,
   `año` year(4) NOT NULL,
   `fecha-avance` date NOT NULL,
@@ -101,6 +101,13 @@ CREATE TABLE `investigaciones` (
   `emailUsuario` varchar(320) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `investigaciones`
+--
+
+INSERT INTO `investigaciones` (`id`, `nombre_investigador`, `email`, `password_investigacion`, `nombres-investigacion`, `año`, `fecha-avance`, `titulo`, `tipo-material`, `clasificacion`, `fines-investigacion`, `caracteristicas-material`, `resumen`, `introduccion`, `antecedentes`, `objetivos`, `hipotesis`, `esquema-sintesis`, `desc-sintesis`, `esquema-funcionamiento`, `desc-funcionamiento`, `tipo-evaluacion`, `tecnicas-utiles`, `justificacion-tecnicas`, `nivel-certeza`, `metas-expectativas`, `referencias`, `bibliografia`, `emailUsuario`) VALUES
+('JRIESRINCONES171597624443693', 'Investigador 1', 'correo@correo.com', '7c222fb2927d828af22f592134e8932480637c0d', '', 0000, '0000-00-00', 'Prueba1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'ivan_farid@hotmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -111,7 +118,7 @@ CREATE TABLE `materiales-investigacion` (
   `id` int(11) NOT NULL,
   `archivo-material` varchar(200) NOT NULL,
   `descripcion-material` varchar(1000) NOT NULL,
-  `idInvestigacion` char(10) NOT NULL
+  `idInvestigacion` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -129,6 +136,13 @@ CREATE TABLE `pacientes` (
   `edad` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `pacientes`
+--
+
+INSERT INTO `pacientes` (`id`, `nombres`, `apellidos`, `domicilio`, `telefono`, `edad`) VALUES
+('21213132', 'Juana Maria', 'Perez Godoy', 'calle 2 , colonia', '1234567891', 45);
+
 -- --------------------------------------------------------
 
 --
@@ -139,7 +153,7 @@ CREATE TABLE `pasos-investigacion` (
   `id` int(11) NOT NULL,
   `paso-archivo` varchar(200) NOT NULL,
   `descripcion-paso` varchar(1000) NOT NULL,
-  `idInvestigacion` char(10) NOT NULL
+  `idInvestigacion` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -178,12 +192,19 @@ CREATE TABLE `proveedores-compras` (
 --
 
 CREATE TABLE `tratamientos` (
-  `id` char(10) NOT NULL,
+  `id` int(11) NOT NULL,
   `tratamiento` text NOT NULL,
   `fecha` date NOT NULL,
   `seguimiento` text NOT NULL,
   `idPaciente` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tratamientos`
+--
+
+INSERT INTO `tratamientos` (`id`, `tratamiento`, `fecha`, `seguimiento`, `idPaciente`) VALUES
+(1, 'Poner inyección', '2020-08-17', 'Ver posibles reacciones', '21213132');
 
 -- --------------------------------------------------------
 
@@ -203,10 +224,6 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`email`, `id`, `nombre_usuario`, `password`) VALUES
-('corre@correo.com', 3, 'correo1', '7c222fb2927d828af22f592134e8932480637c0d'),
-('correo_1@correo.com', 16, 'correo2', '7c222fb2927d828af22f592134e8932480637c0d'),
-('correo_2@correo.com', 18, '1111111', '7c222fb2927d828af22f592134e8932480637c0d'),
-('ivan.correo@hotmail.com', 2, 'ivan', '7c222fb2927d828af22f592134e8932480637c0d'),
 ('ivan_farid@hotmail.com', 1, 'Farid', '7c222fb2927d828af22f592134e8932480637c0d');
 
 -- --------------------------------------------------------
@@ -218,7 +235,7 @@ INSERT INTO `usuarios` (`email`, `id`, `nombre_usuario`, `password`) VALUES
 CREATE TABLE `ventajas-investigacion` (
   `id` int(11) NOT NULL,
   `ventaja` varchar(200) NOT NULL,
-  `idInvestigacion` char(10) NOT NULL
+  `idInvestigacion` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -252,7 +269,8 @@ ALTER TABLE `explicaciones-investigacion`
 --
 ALTER TABLE `investigaciones`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `emailUsuario` (`emailUsuario`);
+  ADD KEY `emailUsuario` (`emailUsuario`),
+  ADD KEY `emailUsuario_2` (`emailUsuario`);
 
 --
 -- Indices de la tabla `materiales-investigacion`
@@ -351,10 +369,16 @@ ALTER TABLE `proveedores-compras`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `ventajas-investigacion`
