@@ -4,6 +4,11 @@ session_start();
 
 if (isset($_SESSION['usuario'])) {
  $nombre = $_SESSION['usuario']['nombre_usuario'];
+ if (isset($_SESSION['inv'])){
+  $datosInv = $_SESSION['inv'];
+}else {
+    $datosInv = null;
+}
 }else{
   $nombre = null;
 }
@@ -88,7 +93,23 @@ if (isset($_SESSION['usuario'])) {
    </div>
  </nav>
 
- <nav aria-label="breadcrumb">
+ <div class="modal hide fade in" id="modal-adv" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">¡Inicie sesión para continuar!</h4>
+      </div>
+      <div class="modal-body">
+        Es necesario acceder a su cuenta para comenzar una nueva investigación
+      </div>
+      <div class="modal-footer">
+        <a href="log.php" class="btn btn-primary shadow">Iniciar Sesión</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav aria-label="breadcrumb">
   <div  class=" float-right aling-self-center text-center session-user">
     <ul class="list-inline list-unstyled">
       <?php
@@ -97,164 +118,239 @@ if (isset($_SESSION['usuario'])) {
         echo "<li class='list-inline-item'><a href='php/salir.php' class='btn btn-danger exit_session rounded-0'>Salir</a></li>"; 
       }else{
         echo "<li class='list-inline-item'><a href='log.php' class='btn btn-secondary exit_session-2'>Iniciar sesión</a></li>";
-        echo "<li class='list-inline-item'><a href='reg.php' class='btn btn-secondary exit_session-2'>Registrarse</a></li>"; 
-      }
-      ?>    
-    </ul>    
-  </div>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Investigación nueva</li>
-  </ol>
-</nav>
+        echo "<li class='list-inline-item'><a href='reg.php' class='btn btn-secondary exit_session-2'>Registrarse</a></li>";
+        echo "<script type='text/javascript'>
+        $(document).ready(function(){
+          $('#modal-adv').modal({backdrop: 'static', keyboard: false});
+          });
+          </script>"; 
+        }
+        ?>    
+      </ul>    
+    </div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Investigación nueva</li>
+    </ol>
+  </nav>
 
-<section class="d-flex py-4 bg-color-light form-info">
-  <div class="container">
-    <div class="row mb-4">
-      <div class="col-lg-6 align-self-center">
-        <h1 class="text-cyan">Comenzar una nueva investigación</h1>
-        <p class="text-muted">Ingrese los datos necesarios, podra generar el id necesario para la identificación de su investigación</p>
-        <hr />
-      </div>
-      <div class="col-lg-6">
-        <form id="genIdForm">
-          <div class="form-group">
-            <label for="inputNameInfo" class="text-cyan font-weight-bold">Nombre</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese nombre" required>
-          </div>
-          <div class="form-group">
-            <label for="InputProfInfo" class="text-cyan font-weight-bold">Profesión</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese profesión" required>
-          </div>
-          <div class="form-group">
-            <label for="inputEmailInfo" class="text-cyan font-weight-bold">Correo electronico</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese email" required>
-          </div>
-          <div class="form-group">
-            <label for="inputPasswordInfo" class="text-cyan font-weight-bold">Contraseña</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" required>
-            <small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico y contraseña con nadie más.</small>
-          </div>
-          <button type="submit" class="btn btn-primary shadow">Generar ID</button>
-        </form> <!-- End of  GenID form -->
-      </div> <!-- End of col-lg-6(2) -->
-    </div> <!-- End of row -->
-    <hr/>
+  <section class="d-flex py-4 bg-color-light form-info">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-lg-6 align-self-center">
+          <h1 class="text-cyan">Comenzar una nueva investigación</h1>
+          <p class="text-muted">Ingrese los datos necesarios, podra generar el id necesario para la identificación de su investigación</p>
+          <hr />
+        </div>
+        <div class="col-lg-6">
+          <form id="genIdForm">
+            <div class="form-group">
+              <label for="inputNameInfo" class="text-cyan font-weight-bold">Nombre</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese nombre" <?php  
+              if (isset($datosInv['nombre_investigador'])) {
+                echo "value='".$datosInv['nombre_investigador']."'";
+                echo " disabled";
+              }
 
-    <div id="newInfoReg" class="w-75 align-self-center mx-auto mb-4"> 
-      <div class="mb-2 text-center" >
-        <h2 class="text-muted">Su id es: <span class="text-cyan font-weight-bold">ID</span></h2>
-        <p class="text-muted">Ahora  ingrese los siguientes datos para continuar</p>
-      </div>
-      <form id="inputNewInfoReg">
-        <div class="form-group">
-          <label for="inputNames" class="text-cyan lead font-weight-bold">Nombres</label>
-          <input type="text" class="form-control" id="inputNames" placeholder="Ingrese nombres" required>     
-        </div>
-        <div class="form-group py-1">
-          <label for="inputYear" class="text-cyan lead font-weight-bold">Año</label>
-          <input type="text" class="yearpicker form-control" id="inputYear" required/>
-        </div>
-        <div class="form-group">
-          <label for="inputAdvanceDate" class="text-cyan lead font-weight-bold">Fecha de registro de avance</label>
-          <input type="date" class="form-control" id="inputAdvanceDate" required>
-        </div>
-        <div class="form-group">
-          <label for="inputTitle" class="text-cyan lead font-weight-bold">Título</label>
-          <input type="text" class="form-control" id="inputTitle" placeholder="Título" required>
-        </div>
-        <button type="submit" class="btn btn-primary shadow">Siguiente</button>
-      </form> <!-- End of inputNewInfoReg -->
-    </div> <!-- End of newDataReg -->
-    
-    <div id="newInfoReg2" class="w-75 align-self-center mx-auto mb-4">
+              ?> required >
+            </div>
+
+            <!-- hacer funcionar card para ivestigacion nueva y ID -->
+            <div class="form-group">
+              <label for="InputProfInfo" class="text-cyan font-weight-bold">Profesión</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese profesión" required>
+            </div>
+            <div class="form-group">
+              <label for="inputEmailInfo" class="text-cyan font-weight-bold">Correo electronico</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese email" required>
+            </div>
+            <div class="form-group">
+              <label for="inputPasswordInfo" class="text-cyan font-weight-bold">Contraseña</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" required>
+              <small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico y contraseña con nadie más.</small>
+            </div>
+            <button type="submit" class="btn btn-primary shadow">Generar ID</button>
+          </form> <!-- End of  GenID form -->
+        </div> <!-- End of col-lg-6(2) -->
+      </div> <!-- End of row -->
       <hr/>
-      <form id="inputNewInfoReg2">
-        <div class="form-group text-center">
-          <label for="multipleMaterial" class="text-cyan lead font-weight-bold">Tipo de material:</label>
-          <select class="form-control" id="materiales" multiple="multiple" required>
-            <option value="metal">Metálico</option>
-            <option value="cera">Cerámico</option>
-            <option value="sc">SemiC</option>
-            <option value="poli">Polimérico</option>
-            <option value="comp">Comp</option>
-            <option value="other">Otro</option>
-          </select>
-        </div>
-        <div class="form-group text-center">
-          <label for="multipleClasif" class="text-cyan lead font-weight-bold">Clasificación:</label>
-          <select class="form-control" id="dimension" multiple="multiple" required>
-            <option value="0D">0D</option>
-            <option value="1D">1D</option>
-            <option value="2D">2D</option>
-            <option value="3D">3D</option>
-            <option value="4D">4D</option>
-            <option value="5D">5D</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="finesTextarea" class="text-cyan lead font-weight-bold">Fines de investigación:</label>
-          <textarea class="form-control" id="finesTextarea" rows="3" placeholder="Fines de la investigacion" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="caracteristicasTextarea" class="text-cyan lead font-weight-bold">Características de material o nanomaterial:</label>
-          <textarea class="form-control" id="caracteristicasTextarea" rows="3" placeholder="Caracteristiscas:" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary shadow">Siguiente</button>
-      </form> <!-- End of inputNewInfoReg2 -->
-    </div> <!-- End of newInfoReg2 -->
-    <hr/>
 
-    <div id="newInfoType" class="w-75 align-self-center mx-auto mb-4">
-      <div class="text-center mb-2">
-        <h2 class="text-muted">Que tipo de investigacion es <span class="text-cyan">Título</span></h2>
-        <p class="text-muted">Ahora  ingrese los siguientes datos para continuar</p>
-      </div>
-      <form id="formNewInfoType">
-        <div class="form-group">
-          <label for="summaryTextarea" class="text-cyan lead font-weight-bold">Resumen</label>
-          <textarea class="form-control" id="summaryTextarea" rows="3" placeholder="Resumen" required></textarea>
+      <div id="newInfoReg" class="w-75 align-self-center mx-auto mb-4"> 
+        <div class="mb-2 text-center" >
+          <h2 class="text-muted">Su id es: <span class="text-cyan font-weight-bold">ID</span></h2>
+          <p class="text-muted">Ahora  ingrese los siguientes datos para continuar</p>
         </div>
-        <div class="form-group">
-          <label for="introTextarea" class="text-cyan lead font-weight-bold">Introducción</label>
-          <textarea class="form-control" id="introTextarea" rows="2" placeholder="Introducción" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="backTextarea" class="text-cyan lead font-weight-bold">Antecendentes(opcional)</label>
-          <textarea class="form-control" id="backTextarea" rows="3" placeholder="Antecendentes" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="objTextarea" class="text-cyan lead font-weight-bold">Objetivos</label>
-          <textarea class="form-control" id="objTextarea" rows="3" placeholder="Objetivos" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="hypoTextarea" class="text-cyan lead font-weight-bold">Hipótesis</label>
-          <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Hipótesis" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary shadow">Metodología</button>
-      </form> <!-- formNewInfoType -->
-    </div> <!-- End of newInfoType -->
+        <form id="inputNewInfoReg">
+          <div class="form-group">
+            <label for="inputNames" class="text-cyan lead font-weight-bold">Nombres</label>
+            <input type="text" class="form-control" id="inputNames" placeholder="Ingrese nombres" required>     
+          </div>
+          <div class="form-group py-1">
+            <label for="inputYear" class="text-cyan lead font-weight-bold">Año</label>
+            <input type="text" class="yearpicker form-control" id="inputYear" required/>
+          </div>
+          <div class="form-group">
+            <label for="inputAdvanceDate" class="text-cyan lead font-weight-bold">Fecha de registro de avance</label>
+            <input type="date" class="form-control" id="inputAdvanceDate" required>
+          </div>
+          <div class="form-group">
+            <label for="inputTitle" class="text-cyan lead font-weight-bold">Título</label>
+            <input type="text" class="form-control" id="inputTitle" placeholder="Título" required>
+          </div>
+          <button type="submit" class="btn btn-primary shadow">Siguiente</button>
+        </form> <!-- End of inputNewInfoReg -->
+      </div> <!-- End of newDataReg -->
 
-    <div id="newInfoMethod" class="w-75 align-self-center mx-auto mb-4">
+      <div id="newInfoReg2" class="w-75 align-self-center mx-auto mb-4">
+        <hr/>
+        <form id="inputNewInfoReg2">
+          <div class="form-group text-center">
+            <label for="multipleMaterial" class="text-cyan lead font-weight-bold">Tipo de material:</label>
+            <select class="form-control" id="materiales" multiple="multiple" required>
+              <option value="metal">Metálico</option>
+              <option value="cera">Cerámico</option>
+              <option value="sc">SemiC</option>
+              <option value="poli">Polimérico</option>
+              <option value="comp">Comp</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+          <div class="form-group text-center">
+            <label for="multipleClasif" class="text-cyan lead font-weight-bold">Clasificación:</label>
+            <select class="form-control" id="dimension" multiple="multiple" required>
+              <option value="0D">0D</option>
+              <option value="1D">1D</option>
+              <option value="2D">2D</option>
+              <option value="3D">3D</option>
+              <option value="4D">4D</option>
+              <option value="5D">5D</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="finesTextarea" class="text-cyan lead font-weight-bold">Fines de investigación:</label>
+            <textarea class="form-control" id="finesTextarea" rows="3" placeholder="Fines de la investigacion" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="caracteristicasTextarea" class="text-cyan lead font-weight-bold">Características de material o nanomaterial:</label>
+            <textarea class="form-control" id="caracteristicasTextarea" rows="3" placeholder="Caracteristiscas:" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary shadow">Siguiente</button>
+        </form> <!-- End of inputNewInfoReg2 -->
+      </div> <!-- End of newInfoReg2 -->
       <hr/>
-      <div class="text-center mb-2">
-        <h2 class="text-muted">Metodología de <span class="text-cyan">Título</span></h2>
-        <p class="text-muted">Ingrese los datos necesarioas para descriir la metodología utilizada</p>
-      </div>
-      <form id="formNewInfoMethod">
-        <label for="inputFileMethod" class="text-cyan lead font-weight-bold">Método de síntesis</label>
-        <div class="custom-file form-group">          
-          <input type="file" class="custom-file-input form-control" id="customFileLang" lang="es">
-          <label class="custom-file-label" for="customFileLang">Subir Archivo para el esquema de síntesis</label> 
+
+      <div id="newInfoType" class="w-75 align-self-center mx-auto mb-4">
+        <div class="text-center mb-2">
+          <h2 class="text-muted">Que tipo de investigacion es <span class="text-cyan">Título</span></h2>
+          <p class="text-muted">Ahora  ingrese los siguientes datos para continuar</p>
         </div>
-        <div class="form-group mt-2">
-          <textarea class="form-control" id="sintTextarea" rows="3" placeholder="Descripción" required></textarea>
+        <form id="formNewInfoType">
+          <div class="form-group">
+            <label for="summaryTextarea" class="text-cyan lead font-weight-bold">Resumen</label>
+            <textarea class="form-control" id="summaryTextarea" rows="3" placeholder="Resumen" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="introTextarea" class="text-cyan lead font-weight-bold">Introducción</label>
+            <textarea class="form-control" id="introTextarea" rows="2" placeholder="Introducción" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="backTextarea" class="text-cyan lead font-weight-bold">Antecendentes(opcional)</label>
+            <textarea class="form-control" id="backTextarea" rows="3" placeholder="Antecendentes" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="objTextarea" class="text-cyan lead font-weight-bold">Objetivos</label>
+            <textarea class="form-control" id="objTextarea" rows="3" placeholder="Objetivos" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="hypoTextarea" class="text-cyan lead font-weight-bold">Hipótesis</label>
+            <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Hipótesis" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary shadow">Metodología</button>
+        </form> <!-- formNewInfoType -->
+      </div> <!-- End of newInfoType -->
+
+      <div id="newInfoMethod" class="w-75 align-self-center mx-auto mb-4">
+        <hr/>
+        <div class="text-center mb-2">
+          <h2 class="text-muted">Metodología de <span class="text-cyan">Título</span></h2>
+          <p class="text-muted">Ingrese los datos necesarioas para descriir la metodología utilizada</p>
+        </div>
+        <form id="formNewInfoMethod">
+          <label for="inputFileMethod" class="text-cyan lead font-weight-bold">Método de síntesis</label>
+          <div class="custom-file form-group">          
+            <input type="file" class="custom-file-input form-control" id="customFileLang" lang="es">
+            <label class="custom-file-label" for="customFileLang">Subir Archivo para el esquema de síntesis</label> 
+          </div>
+          <div class="form-group mt-2">
+            <textarea class="form-control" id="sintTextarea" rows="3" placeholder="Descripción" required></textarea>
+          </div>
+
+          <div>
+            <label for="inputfilestep" class="text-cyan lead font-weight-bold">Pasos a seguir</label>
+            <div class="row align-self-center">
+              <div class="col-lg-4 form-group fieldGroup align-self-center">
+                <div class="card my-3">
+                  <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <div class="custom-file form-group">
+                          <input type="file" name="step[]" class="custom-file-input form-control" id="customFileLang" lang="es">
+                          <label class="custom-file-label" for="customFileLang">Subir archivo</label> 
+                        </div>   
+                      </li>
+                      <li>
+                        <div class="form-group mt-1">
+                          <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de paso" required></textarea>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="card-footer input-group-addon text-center">
+                     <a href="javascript:void(0)" class="btn btn-success addMore"><span class="icon ion-md-add font-weight-bold" aria-hidden="true"></span> Añadir paso</a>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+             <div class="col-lg-4 align-self-center form-group fieldGroupCopy" style="display: none;">
+              <div class="card my-3">
+                <div class="card-body">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <div class="custom-file form-group">
+                        <input type="file" name="step[]" class="custom-file-input form-control" id="customFileLang" lang="es">
+                        <label class="custom-file-label" for="customFileLang">Subir archivo</label>
+                      </div>       
+                    </li>
+                    <li>
+                      <div class="form-group mt-1">
+                        <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de paso" required></textarea>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="card-footer input-group-addon text-center">
+                    <a href="javascript:void(0)" class="btn btn-danger remove"><span class="icon ion-md-trash" aria-hidden="true"></span> Eliminar paso</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End of row -->
         </div>
 
         <div>
-          <label for="inputfilestep" class="text-cyan lead font-weight-bold">Pasos a seguir</label>
+          <label for="inputFileMethod" class="text-cyan lead font-weight-bold">Funcionamiento</label>
+          <div class="custom-file form-group">          
+            <input type="file" class="custom-file-input form-control" id="customFileLang" lang="es">
+            <label class="custom-file-label" for="customFileLang">Subir Archivo para el esquema de funcionamiento</label> 
+          </div>
+          <div class="form-group mt-2">
+            <textarea class="form-control" id="sintTextarea" rows="3" placeholder="Descripción de material" required></textarea>
+          </div>
+        </div>
+
+        <div>
+          <label for="inputfilestep" class="text-cyan lead font-weight-bold">Materiales</label>
           <div class="row align-self-center">
-            <div class="col-lg-4 form-group fieldGroup align-self-center">
+            <div class="col-lg-4  fieldGroup2 align-self-center">
               <div class="card my-3">
                 <div class="card-body">
                   <ul class="list-unstyled mb-0">
@@ -266,18 +362,18 @@ if (isset($_SESSION['usuario'])) {
                     </li>
                     <li>
                       <div class="form-group mt-1">
-                        <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de paso" required></textarea>
+                        <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de material" required></textarea>
                       </div>
                     </li>
                   </ul>
                   <div class="card-footer input-group-addon text-center">
-                   <a href="javascript:void(0)" class="btn btn-success addMore"><span class="icon ion-md-add font-weight-bold" aria-hidden="true"></span> Añadir paso</a>
+                   <a href="javascript:void(0)" class="btn btn-success addMore2"><span class="icon ion-md-add font-weight-bold" aria-hidden="true"></span> Añadir material</a>
                  </div>
                </div>
              </div>
            </div>
 
-           <div class="col-lg-4 align-self-center form-group fieldGroupCopy" style="display: none;">
+           <div class="col-lg-4 align-self-center form-group fieldGroupCopy2" style="display: none;">
             <div class="card my-3">
               <div class="card-body">
                 <ul class="list-unstyled mb-0">
@@ -289,145 +385,106 @@ if (isset($_SESSION['usuario'])) {
                   </li>
                   <li>
                     <div class="form-group mt-1">
-                      <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de paso" required></textarea>
+                      <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de material" required></textarea>
                     </div>
                   </li>
                 </ul>
                 <div class="card-footer input-group-addon text-center">
-                  <a href="javascript:void(0)" class="btn btn-danger remove"><span class="icon ion-md-trash" aria-hidden="true"></span> Eliminar paso</a>
+                  <a href="javascript:void(0)" class="btn btn-danger remove2"><span class="icon ion-md-trash" aria-hidden="true"></span> Eliminar material</a>
                 </div>
               </div>
             </div>
           </div>
         </div> <!-- End of row -->
       </div>
+      <button type="submit" class="btn btn-primary shadow">Siguiente</button>
+    </form> <!-- End of formNewInfoMethod -->
+  </div> <!-- End of newInfoMethod -->
 
-      <div>
-        <label for="inputFileMethod" class="text-cyan lead font-weight-bold">Funcionamiento</label>
-        <div class="custom-file form-group">          
-          <input type="file" class="custom-file-input form-control" id="customFileLang" lang="es">
-          <label class="custom-file-label" for="customFileLang">Subir Archivo para el esquema de funcionamiento</label> 
+
+  <div id="newInfoMethod2" class="w-75 align-self-center mx-auto mb-4">
+    <hr/>
+    <div class="text-center mb-2">
+      <h2 class="text-muted">Metodología 2 de <span class="text-cyan">Título</span></h2>
+      <p class="text-muted">Ingrese los datos necesarioas para descriir la metodología utilizada</p>
+    </div>
+    <form id="formNewInfoMethod2">
+      <div class="form-group">
+        <label for="selectEv" class="text-cyan lead font-weight-bold">Evaluación</label>
+        <select name="select" id="inputSelect" class="form-control w-25" required="required">
+          <option value="1">Fisícoquímica</option>
+          <option value="2">Biológica</option>
+        </select>
+        <div class="divOculto mt-3" id="div1">
+          <div>
+            <label for="hypoTextarea" class="text-cyan font-weight-light">Técnicas útiles para una investigacíon fisícoquímica</label>
+            <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí las técnicas útiles para una investigacíon fisícoquímica" required></textarea>
+          </div>
+          <div>
+            <label for="hypoTextarea" class="text-cyan font-weight-light mt-2">Justificación de elección de técnicas</label>
+            <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí la justificación de elección de técnicas para una investigacíon fisícoquímica" required></textarea>
+          </div>
         </div>
-        <div class="form-group mt-2">
-          <textarea class="form-control" id="sintTextarea" rows="3" placeholder="Descripción de material" required></textarea>
+        <div class="divOculto mt-3" id="div2">
+          <div>
+            <label for="hypoTextarea" class="text-cyan font-weight-light">Técnicas útiles para una investigacíon biológica</label>
+            <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí las técnicas útiles para una investigacíon biológica" required></textarea>
+          </div>
+          <div>
+            <label for="hypoTextarea" class="text-cyan font-weight-light mt-2">Justificación de elección de técnicas</label>
+            <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí la justificación de elección de técnicas para una investigacíon biológica" required></textarea>
+          </div>
         </div>
       </div>
+      <button type="submit" class="btn btn-primary shadow">Resultados esperados</button>
+    </form> <!-- End of formNewInfoMethod2 -->
+  </div> <!-- End of newInfoMethod2 -->
 
+  <div id="expectedRes" class="w-75 align-self-center mx-auto mb-4">
+    <hr/>
+    <div class="text-center mb-2">
+      <h2 class="text-muted">Resultados esperados de <span class="text-cyan">Título</span></h2>
+      <p class="text-muted">A continuacion ingrese los datos necesarios para describir los resultados esperdos de su investigacíon</p>
+    </div>
+    <form id="formExpectedRes">
       <div>
-        <label for="inputfilestep" class="text-cyan lead font-weight-bold">Materiales</label>
+        <div>
+          <label for="inputfilestep" class="text-cyan lead font-weight-bold">Explicación</label>
+          <p><small class="text-muted">Agrege imagenes de técnicas de caracteriación, experimentacíon, evaluación, etc...</small></p>        
+        </div>
         <div class="row align-self-center">
-          <div class="col-lg-4  fieldGroup2 align-self-center">
+          <div class="col-lg-4 form-group fieldGroup3 align-self-center">
             <div class="card my-3">
               <div class="card-body">
                 <ul class="list-unstyled mb-0">
                   <li>
                     <div class="custom-file form-group">
                       <input type="file" name="step[]" class="custom-file-input form-control" id="customFileLang" lang="es">
-                      <label class="custom-file-label" for="customFileLang">Subir archivo</label> 
+                      <label class="custom-file-label" for="customFileLang">Subir imagen</label> 
                     </div>   
                   </li>
                   <li>
                     <div class="form-group mt-1">
-                      <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de material" required></textarea>
+                      <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción" required></textarea>
                     </div>
                   </li>
                 </ul>
                 <div class="card-footer input-group-addon text-center">
-                 <a href="javascript:void(0)" class="btn btn-success addMore2"><span class="icon ion-md-add font-weight-bold" aria-hidden="true"></span> Añadir material</a>
+                 <a href="javascript:void(0)" class="btn btn-success addMore3"><span class="icon ion-md-add font-weight-bold" aria-hidden="true"></span> Añadir imagen</a>
                </div>
              </div>
            </div>
          </div>
 
-         <div class="col-lg-4 align-self-center form-group fieldGroupCopy2" style="display: none;">
+         <div class="col-lg-4 align-self-center form-group fieldGroupCopy3" style="display: none;">
           <div class="card my-3">
             <div class="card-body">
               <ul class="list-unstyled mb-0">
                 <li>
                   <div class="custom-file form-group">
                     <input type="file" name="step[]" class="custom-file-input form-control" id="customFileLang" lang="es">
-                    <label class="custom-file-label" for="customFileLang">Subir archivo</label>
+                    <label class="custom-file-label" for="customFileLang">Subir imagen</label>
                   </div>       
-                </li>
-                <li>
-                  <div class="form-group mt-1">
-                    <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción de material" required></textarea>
-                  </div>
-                </li>
-              </ul>
-              <div class="card-footer input-group-addon text-center">
-                <a href="javascript:void(0)" class="btn btn-danger remove2"><span class="icon ion-md-trash" aria-hidden="true"></span> Eliminar material</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> <!-- End of row -->
-    </div>
-    <button type="submit" class="btn btn-primary shadow">Siguiente</button>
-  </form> <!-- End of formNewInfoMethod -->
-</div> <!-- End of newInfoMethod -->
-
-
-<div id="newInfoMethod2" class="w-75 align-self-center mx-auto mb-4">
-  <hr/>
-  <div class="text-center mb-2">
-    <h2 class="text-muted">Metodología 2 de <span class="text-cyan">Título</span></h2>
-    <p class="text-muted">Ingrese los datos necesarioas para descriir la metodología utilizada</p>
-  </div>
-  <form id="formNewInfoMethod2">
-    <div class="form-group">
-      <label for="selectEv" class="text-cyan lead font-weight-bold">Evaluación</label>
-      <select name="select" id="inputSelect" class="form-control w-25" required="required">
-        <option value="1">Fisícoquímica</option>
-        <option value="2">Biológica</option>
-      </select>
-      <div class="divOculto mt-3" id="div1">
-        <div>
-          <label for="hypoTextarea" class="text-cyan font-weight-light">Técnicas útiles para una investigacíon fisícoquímica</label>
-          <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí las técnicas útiles para una investigacíon fisícoquímica" required></textarea>
-        </div>
-        <div>
-          <label for="hypoTextarea" class="text-cyan font-weight-light mt-2">Justificación de elección de técnicas</label>
-          <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí la justificación de elección de técnicas para una investigacíon fisícoquímica" required></textarea>
-        </div>
-      </div>
-      <div class="divOculto mt-3" id="div2">
-        <div>
-          <label for="hypoTextarea" class="text-cyan font-weight-light">Técnicas útiles para una investigacíon biológica</label>
-          <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí las técnicas útiles para una investigacíon biológica" required></textarea>
-        </div>
-        <div>
-          <label for="hypoTextarea" class="text-cyan font-weight-light mt-2">Justificación de elección de técnicas</label>
-          <textarea class="form-control" id="hypoTextarea" rows="3" placeholder="Describa aquí la justificación de elección de técnicas para una investigacíon biológica" required></textarea>
-        </div>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary shadow">Resultados esperados</button>
-  </form> <!-- End of formNewInfoMethod2 -->
-</div> <!-- End of newInfoMethod2 -->
-
-<div id="expectedRes" class="w-75 align-self-center mx-auto mb-4">
-  <hr/>
-  <div class="text-center mb-2">
-    <h2 class="text-muted">Resultados esperados de <span class="text-cyan">Título</span></h2>
-    <p class="text-muted">A continuacion ingrese los datos necesarios para describir los resultados esperdos de su investigacíon</p>
-  </div>
-  <form id="formExpectedRes">
-    <div>
-      <div>
-        <label for="inputfilestep" class="text-cyan lead font-weight-bold">Explicación</label>
-        <p><small class="text-muted">Agrege imagenes de técnicas de caracteriación, experimentacíon, evaluación, etc...</small></p>        
-      </div>
-      <div class="row align-self-center">
-        <div class="col-lg-4 form-group fieldGroup3 align-self-center">
-          <div class="card my-3">
-            <div class="card-body">
-              <ul class="list-unstyled mb-0">
-                <li>
-                  <div class="custom-file form-group">
-                    <input type="file" name="step[]" class="custom-file-input form-control" id="customFileLang" lang="es">
-                    <label class="custom-file-label" for="customFileLang">Subir imagen</label> 
-                  </div>   
                 </li>
                 <li>
                   <div class="form-group mt-1">
@@ -436,37 +493,14 @@ if (isset($_SESSION['usuario'])) {
                 </li>
               </ul>
               <div class="card-footer input-group-addon text-center">
-               <a href="javascript:void(0)" class="btn btn-success addMore3"><span class="icon ion-md-add font-weight-bold" aria-hidden="true"></span> Añadir imagen</a>
-             </div>
-           </div>
-         </div>
-       </div>
-
-       <div class="col-lg-4 align-self-center form-group fieldGroupCopy3" style="display: none;">
-        <div class="card my-3">
-          <div class="card-body">
-            <ul class="list-unstyled mb-0">
-              <li>
-                <div class="custom-file form-group">
-                  <input type="file" name="step[]" class="custom-file-input form-control" id="customFileLang" lang="es">
-                  <label class="custom-file-label" for="customFileLang">Subir imagen</label>
-                </div>       
-              </li>
-              <li>
-                <div class="form-group mt-1">
-                  <textarea class="form-control" name="desc[]" id="sintTextarea" rows="3" placeholder="Descripción" required></textarea>
-                </div>
-              </li>
-            </ul>
-            <div class="card-footer input-group-addon text-center">
-              <a href="javascript:void(0)" class="btn btn-danger remove3"><span class="icon ion-md-trash" aria-hidden="true"></span> Eliminar imagen</a>
+                <a href="javascript:void(0)" class="btn btn-danger remove3"><span class="icon ion-md-trash" aria-hidden="true"></span> Eliminar imagen</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- End of row -->
-  </div>
-</form> <!-- End of formExpectedRes -->
+      </div> <!-- End of row -->
+    </div>
+  </form> <!-- End of formExpectedRes -->
 </div> <!-- End expectedRes -->
 
 <div id="certainty" class="w-75 align-self-center mx-auto mb-4">

@@ -113,7 +113,7 @@ if (isset($_SESSION['usuario'])) {
     <div class="container">
       <div class="row">
         <div class="col-lg-6 aling-self-center">
-          <h1 class="mb-4">Bienvenido al <span class="text-primary font-weight-bold"> Modifique esto Sistema de información de nanomedicina</span></h1>
+          <h1 class="mb-4">Bienvenido al <span class="text-primary font-weight-bold">Sistema de información de nanomedicina</span></h1>
           <p class="lead text-light mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
           </p>
@@ -157,25 +157,26 @@ if (isset($_SESSION['usuario'])) {
       <p class="lead text-muted font-weight-bold">No olvides visitar el foro, aquí podrás discutir temas, ver las discusiones relevantes o agregar una pregunta</p>
     </div>
     <div class="row">
+      
       <div class="col-lg-4">
         <div class="card my-3">
           <div class="card-body">
             <small class="text-cyan font-weight-bold">Continuar</small>
             <h2 class="font-weight-bold">Continuar con una investigación</h2>
             <p class="text-muted mb-3">Ingrese los datos para continuar con investigación</p>
-            <form action="#" method="post">
+            <form action="infoCon.php" method="post">
               <ul class="list-unstyled mb-0">
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="id" placeholder="ID">
+                  <input class="inputR w-75" type="text" name="card_id_continue" id="card_id_continue" placeholder="ID" minlength="20" maxlength="40" required>
                 </li>
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="pass" placeholder="Contraseña">
+                  <input class="inputR w-75" type="password" name="card_password_continue" id="card_password_continue" placeholder="Contraseña" minlength="8" maxlength="16" required >
                 </li>
               </ul>
               <div class="card-footer">
-                <input type="submit" class="btn btn-primary w-100 shadow " name="" value="Continuar">
+                <input type="submit" class="btn btn-primary w-100 shadow" name="card_continue_btn" id="card_continue_btn" value="Continuar">
               </div>
             </form>
           </div>
@@ -192,19 +193,19 @@ if (isset($_SESSION['usuario'])) {
               <ul class="list-unstyled mb-0">
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="email" placeholder="Correo">
+                  <input class="inputR w-75" type="text" name="card_name_newInfo" id="card_name_newInfo" placeholder="Nombre completo" required>
                 </li>
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="name" placeholder="Nombre">
+                  <input class="inputR w-75" type="text" name="card_email_newInfo" id="card_email_newInfo" placeholder="Correo" required >
                 </li>
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="profession" placeholder="Profesión ">
+                  <input class="inputR w-75" type="text" name="card_prof_newInfo" id="card_prof_newInfo" placeholder="Profesión" required >
                 </li>
               </ul>
               <div class="card-footer">
-                <input type="submit" class="btn btn-primary w-100 shadow " name="" value="Generar ID">
+                <input type="submit" class="btn btn-primary w-100 shadow" name="card_gen_id" id="gen_id_newInfo_index" value="Generar ID" >
               </div>
             </form>
           </div>
@@ -221,22 +222,22 @@ if (isset($_SESSION['usuario'])) {
               <ul class="list-unstyled mb-0">
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="name" placeholder="Nombre del autor">
+                  <input class="inputR w-75" type="text" name="card_autor_article" id="card_autor_article" placeholder="Nombre del autor" required >
                 </li>
                 <li>
                   <i class="icon ion-md-create lead text-cyan mr-3"></i>
-                  <input class="inputR w-75" type="text" name="purposes" placeholder="Fines">
+                  <input class="inputR w-75" type="text" name="card_purposes_article" id="card_purposes_article" placeholder="Fines" required >
                 </li>
                 <li>
                   <i class="icon ion-md-document lead text-cyan mr-3"></i>
                   <div class="custom-file w-75 inputR">    
-                    <input type="file" class="custom-file-input" id="customFileLang" lang="es">
+                    <input type="file" class="custom-file-input" name="card_doc_artcle" id="card_doc_artcle" lang="es" >
                     <label class="custom-file-label" for="customFileLang">Subir Archivo</label>
                   </div>
                 </li>
               </ul>
               <div class="card-footer">
-                <input type="submit" class="btn btn-primary w-100 shadow " name="" value="Ir">
+                <input type="submit" class="btn btn-primary w-100 shadow" name="card_article_go" id="card_article_go" value="Ir" >
               </div>
             </form>
           </div>
