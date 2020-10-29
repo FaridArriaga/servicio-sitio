@@ -47,55 +47,6 @@ if (isset($_SESSION['usuario'])) {
   <title>Repositorio</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top scrolling-navbar">
-    <div class="container">
-      <a class="navbar-brand font-weight-bold mr-5" href="index.php">Repositorio</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item mr-auto dropdown">  
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Información
-            </a>
-            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item text-color-muted-x" href="infoCon.php">Continuar investigación</a>
-              <a class="dropdown-item text-color-muted-x" href="infoNew.php">Investigación nueva</a>
-            </div>
-          </li>
-          <li class="nav-item mr-auto">
-            <a class="nav-link" href="invDisponibles.php">Investigaciones</a>
-          </li>
-          <li class="nav-item mr-auto">
-            <a class="nav-link" href="foro.php">Ir al foro</a>
-          </li>
-          <li class="nav-item mr-auto">
-            <a class="nav-link" href="materials.php">Nanomateriales</a>
-          </li>
-          <li class="nav-item mr-auto">
-            <a class="nav-link" href="#">Productos</a>
-          </li>
-          <li class="nav-item mr-auto">
-            <a class="nav-link" href="#">Proveedores</a>
-          </li>
-          <li class="nav-item mr-auto">
-            <form class="input-group mb-0" action="#" method="post" id="form-quick-search">
-              <input type="text" class="form-control" placeholder="Búsqueda rápida" aria-label="Búsqueda rápida" aria-describedby="basic-addon2" >
-              <div class="input-group-append" >
-                <button type="submit" class="input-group-text" >
-                  <span  id="basic-addon2"><i class="icon ion-md-search"></i></span>
-                </button>
-                <button type="button" class="input-group-text" >
-                 <span id="basic-addon2"><i class="icon ion-md-close"></i></i></span>
-               </button>               
-             </div>
-           </form>
-         </li>
-       </ul>
-     </div>
-   </div>
- </nav>
 
  <div class="modal hide fade in" id="modal-adv" tabindex="-1" role="dialog" >
   <div class="modal-dialog" role="document">
@@ -112,6 +63,58 @@ if (isset($_SESSION['usuario'])) {
     </div>
   </div>
 </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand font-weight-bold mr-5" href="index.php">Repositorio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item mr-auto dropdown">  
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Información
+          </a>
+          <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item text-color-muted-x" href="infoCon.php">Continuar investigación</a>
+            <a class="dropdown-item text-color-muted-x" href="infoNew.php">Investigación nueva</a>
+          </div>
+        </li>
+        <li class="nav-item mr-auto">
+          <a class="nav-link" href="invDisponibles.php">Investigaciones</a>
+        </li>
+        <li class="nav-item mr-auto">
+          <a class="nav-link" href="foro.php">Ir al foro</a>
+        </li>
+        <li class="nav-item mr-auto">
+          <a class="nav-link" href="materials.php">Nanomateriales</a>
+        </li>
+        <li class="nav-item mr-auto">
+          <a class="nav-link" href="#">Productos</a>
+        </li>
+        <li class="nav-item mr-auto">
+          <a class="nav-link" href="#">Proveedores</a>
+        </li>
+        <li class="nav-item mr-auto">
+          <form class="input-group mb-0" action="#" method="post" id="form-quick-search">
+            <input type="text" class="form-control" placeholder="Búsqueda rápida" aria-label="Búsqueda rápida" aria-describedby="basic-addon2" >
+            <div class="input-group-append" >
+              <button type="submit" class="input-group-text" >
+                <span  id="basic-addon2"><i class="icon ion-md-search"></i></span>
+              </button>
+              <button type="button" class="input-group-text" >
+               <span id="basic-addon2"><i class="icon ion-md-close"></i></i></span>
+             </button>               
+           </div>
+         </form>
+       </li>
+     </ul>
+   </div>
+ </div>
+</nav>
+
+
 
 <nav aria-label="breadcrumb">
   <div  class=" float-right aling-self-center text-center session-user">
@@ -152,7 +155,7 @@ if (isset($_SESSION['usuario'])) {
               <label for="">Id de la investigación</label>
               <input type="text" class="form-control" name="id_continue" id="id_continue" placeholder="Ingrese id" value="<?php if(isset($id_continue)){
                 echo $id_continue;
-              } ?>" minlength="20" maxlength="40" />
+              } ?>" minlength="20" maxlength="40" onkeyup="mayus(this);" />
 
             </div>
             <div class="form-group">

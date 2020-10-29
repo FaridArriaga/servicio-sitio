@@ -5,11 +5,6 @@ session_start();
 if (isset($_SESSION['usuario'])) {
  $nombre = $_SESSION['usuario']['nombre_usuario'];
 
- echo ("<script LANGUAGE='JavaScript'>
-  window.alert('Usted ya tiene una sesion abierta');
-  window.location.href='index.php';
-  </script>");
-
 }else{
   $nombre = null;
 }
@@ -47,6 +42,25 @@ if (isset($_SESSION['usuario'])) {
   <title>Repositorio</title>
 </head>
 <body>
+
+  <div class="modal hide fade in" id="modal-adv" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">¡Usted ya tiene una sesión activa!</h4>
+        </div>
+        <div class="modal-body">
+          Haga clic en el botón para regresar al inicio o cierre sesión
+        </div>
+        <div class="modal-footer">
+          <a href="index.php" class="btn btn-primary shadow">Ir al inicio</a>
+          <a href="php/salir.php" class="btn btn-danger shadow">Cerrar sesión</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top scrolling-navbar">
     <div class="container">
       <a class="navbar-brand font-weight-bold mr-5" href="index.php">Repositorio</a>
@@ -103,45 +117,51 @@ if (isset($_SESSION['usuario'])) {
       <?php
       if (isset($nombre)) {
         echo "<li class='list-inline-item lead user-name'><p>".$nombre."</p></li>";
-        echo "<li class='list-inline-item'><a href='php/salir.php' class='btn btn-danger exit_session rounded-0'>Salir</a></li>"; 
-      }else{
-        echo "<li class='list-inline-item'><a href='log.php' class='btn btn-secondary exit_session-2'>Iniciar sesión</a></li>";
-        echo "<li class='list-inline-item'><a href='reg.php' class='btn btn-secondary exit_session-2'>Registrarse</a></li>"; 
-      }
-      ?>    
-    </ul>    
+        echo "<li class='list-inline-item'><a href='php/salir.php' class='btn btn-danger exit_session rounded-0'>Salir</a></li>";
+        echo "<script type='text/javascript'>
+        $(document).ready(function(){
+          $('#modal-adv').modal({backdrop: 'static', keyboard: false});
+          });
+          </script>"; 
+        }else{
+          echo "<li class='list-inline-item'><a href='log.php' class='btn btn-secondary exit_session-2'>Iniciar sesión</a></li>";
+          echo "<li class='list-inline-item'><a href='reg.php' class='btn btn-secondary exit_session-2'>Registrarse</a></li>";
+
+        }
+        ?>    
+      </ul>    
+    </div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Iniciar sesión</li>
+    </ol>
+  </nav>
+
+  <section class="bg-color-dark-x-x py-4 d-flex">
+    <div class="container align-self-center">
+     <div class="py-1 shadow form-registro w-50 mx-auto">
+      <form action="" method="post" id="formularioLog" class="w-100">
+        <div class="text-center mx-auto w-25">
+          <img src="imgs/icon_reg.png" alt="" class="avatar w-75 my-4" id="logo_registro">
+        </div>
+        <h1 class="text-cyan text-center">Iniciar sesión</h1>
+        <div class="grupo">
+          <input type="email" class="form-control" name="email_login" required id="email_login" />
+          <label for="">Email</label>
+        </div>
+        <div class="grupo">
+          <input type="password" class="form-control" pattern="[A-Za-z0-9]{8,16}" name="password_login" id="password_login" required/>
+          <label for="">Contraseña</label>
+        </div>
+        <div class="w-75 mx-auto">
+          <input type="submit" name="" id="btn_login" class="btn btn-primary w-100 btn-light" value="Iniciar sesión">
+        </div>
+
+        <p class="warnings w-100 mt-4" id="warnings"></p>
+
+      </form>      
+    </div>    
   </div>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Iniciar sesión</li>
-  </ol>
-</nav>
-
-<section class="bg-color-dark-x-x py-4 d-flex">
-  <div class="container align-self-center">
-   <div class="py-1 shadow form-registro w-50 mx-auto">
-    <form action="" method="post" id="formularioLog" class="w-100">
-      <div class="text-center mx-auto w-25">
-        <img src="imgs/icon_reg.png" alt="" class="avatar w-75 my-4" id="logo_registro">
-      </div>
-      <h1 class="text-cyan text-center">Iniciar sesión</h1>
-      <div class="grupo">
-        <input type="email" class="form-control" name="email_login" required id="email_login" />
-        <label for="">Email</label>
-      </div>
-      <div class="grupo">
-        <input type="password" class="form-control" pattern="[A-Za-z0-9]{8,16}" name="password_login" id="password_login" required/>
-        <label for="">Contraseña</label>
-      </div>
-      <div class="w-75 mx-auto">
-        <input type="submit" name="" id="btn_login" class="btn btn-primary w-100 btn-light" value="Iniciar sesión">
-      </div>
-
-      <p class="warnings w-100 mt-4" id="warnings"></p>
-
-    </form>      
-  </div>    
-</div>
 </section>
 
 <footer class="py-4 bg-color-light">

@@ -4,6 +4,10 @@ $(function () {
     $('.yearpicker').yearpicker(); 
 });
 
+function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
+
 $(function () {
     var maxGroup = 10;
     
@@ -103,18 +107,18 @@ $(function () {
 
 $(function() {
 
-  $("#inputSelect").on('change', function() {
+  $("#eval_type_new").on('change', function() {
 
     var selectValue = $(this).val();
     switch (selectValue) {
 
-      case "1":
+      case "fis":
       $("#div1").show();
       $("#div2").hide();
       $("#div3").hide();
       break;
 
-      case "2":
+      case "bio":
       $("#div1").hide();
       $("#div2").show();
       $("#div3").hide();
