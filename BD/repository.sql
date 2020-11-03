@@ -106,7 +106,7 @@ CREATE TABLE `investigaciones` (
 --
 
 INSERT INTO `investigaciones` (`id`, `nombre_investigador`, `email`, `password_investigacion`, `nombres-investigacion`, `año`, `fecha-avance`, `titulo`, `tipo-material`, `clasificacion`, `fines-investigacion`, `caracteristicas-material`, `resumen`, `introduccion`, `antecedentes`, `objetivos`, `hipotesis`, `esquema-sintesis`, `desc-sintesis`, `esquema-funcionamiento`, `desc-funcionamiento`, `tipo-evaluacion`, `tecnicas-utiles`, `justificacion-tecnicas`, `nivel-certeza`, `metas-expectativas`, `referencias`, `bibliografia`, `emailUsuario`) VALUES
-('JRIESRINCONES171597624443693', 'Investigador 1', 'correo@correo.com', '7c222fb2927d828af22f592134e8932480637c0d', '', 0000, '0000-00-00', 'Prueba1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'ivan_farid@hotmail.com');
+('JRIESRINCONES171597624443693', 'Investigador 1', 'correo@correo.com', '7c222fb2927d828af22f592134e8932480637c0d', '', 0000, '0000-00-00', 'Prueba1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'correo_1@correo.com');
 
 -- --------------------------------------------------------
 
@@ -224,7 +224,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`email`, `id`, `nombre_usuario`, `password`) VALUES
-('ivan_farid@hotmail.com', 1, 'Farid', '7c222fb2927d828af22f592134e8932480637c0d');
+('correo_1@correo.com', 1, 'Farid', '7c222fb2927d828af22f592134e8932480637c0d');
 
 -- --------------------------------------------------------
 
