@@ -1,4 +1,4 @@
-var complete_name = "Farid Ivan Arriaga Tejeda";
+var complete_name = "Rafael Lopez Perez";
 complete_name = complete_name.toUpperCase();
 var splitted_name = complete_name.split(" ");
 var initials = "";
@@ -16,7 +16,7 @@ for (i = 0; i < splitted_prof.length; i++) {
 	prof_initials += splitted_prof[i].slice(0,1);
 }
 
-var complete_email = "ivan_farid@homail.com";
+var complete_email = "correo.correo@correo.com";
 complete_email = complete_email.toUpperCase();
 var splitted_email = complete_email.split("@");
 complete_email = splitted_email[0];
